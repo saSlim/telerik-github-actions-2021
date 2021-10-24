@@ -1,0 +1,8 @@
+name: learn-github-actions-trigger-on-pull-request
+on: [pull_request]
+jobs:
+  hello-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "Homework Pipelines toolchain - Make workflow trigger on pull request!"
