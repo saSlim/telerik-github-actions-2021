@@ -6,3 +6,32 @@ jobs:
   pre-build:
     env:
       JOB_ENV_VAR: 'job custom env var'
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "The job was automatically triggered by ${{github.event_name}} event"
+    - run: echo "Secret ${{secrets.PASSWORD}}"
+    - name: Print custom environment variable from ubuntu latest
+      env:
+        STEP_ENV_VAR: 'step custom env var'
+      run: |
+        echo "Accessing environment variables in run command"
+        echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
+        echo "$JOB_ENVIRONMENT_VARIABLE"
+        echo "$STEP_ENVIRONMENT_VARIABLE"
+  lint:
+    needs: pre-build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    - name: Lint with pylint
+      run: |
+        python lint_test.py
