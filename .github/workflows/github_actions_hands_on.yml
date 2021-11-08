@@ -1,0 +1,8 @@
+name: Telerik-Github-Actions-Practice
+env:
+  WORKSPACE_ENV_VAR: 'workspace custom env var'
+on: [push]
+jobs:
+  pre-build:
+    env:
+      JOB_ENV_VAR: 'job custom env var'
